@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:testapplicacs/components/LoginForm.dart';
-import 'Pages/HomePage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import './components/globals.dart' as globals;
 
 class HexColor extends Color {
   static int _getColorFromHex(String hexColor) {
@@ -17,6 +17,7 @@ class HexColor extends Color {
 }
 
 void main() {
+  globals.isCheckboxChecked = false;
   runApp(MyApp());
 }
 
@@ -28,7 +29,22 @@ class MyApp extends StatelessWidget {
       title: 'Project Lavi',
       theme: ThemeData(
           primarySwatch: Colors.blue,
-          textTheme: GoogleFonts.nunitoTextTheme(Theme.of(context).textTheme)),
+          textTheme: GoogleFonts.nunitoTextTheme(
+            Theme.of(context).textTheme.copyWith(
+              subtitle1: TextStyle(color: Colors.white)
+            )
+          ),
+          
+          inputDecorationTheme: InputDecorationTheme(
+            hintStyle: TextStyle(
+              color: HexColor('#D3D3D3'),
+            ),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: HexColor('#D3D3D3'))
+            )
+          )  
+        ),
+          
       home: Container(
         // If not authenticated
         child: WelcomePage(),
@@ -58,12 +74,17 @@ class WelcomePage extends StatelessWidget {
                         flex: 1,
                         child: Container(
                           alignment: Alignment.topLeft,
-                          child: Text('RemoteEpsilon',
-                              style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18))),
+                          child: Row(
+                            children: <Widget>[
+                              SvgPicture.asset('assets/logo.svg'),
+                              Text('  RemoteEpsilon',
+                                style: GoogleFonts.montserrat(
+                                    textStyle: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18)))
+                              ],
+                          ),
                         ),
                       ),
                       Expanded(
@@ -80,7 +101,8 @@ class WelcomePage extends StatelessWidget {
                         child: Column(
                           children: [
                             Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text('Rediscover ',
                                       style: TextStyle(
@@ -90,6 +112,7 @@ class WelcomePage extends StatelessWidget {
                                   Text('remote learning.',
                                       style: TextStyle(
                                           fontSize: 22,
+
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold)),
                                 ]),
@@ -109,17 +132,13 @@ class WelcomePage extends StatelessWidget {
                         height: 60.0,
                         child: RaisedButton(
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Scaffold(
-                                      body: Padding(
-                                        padding: const EdgeInsets.all(52.0),
-                                        child: Center(child: LoginForm()),
-                                      ),
-                                      appBar: AppBar(
-                                        title: Text('Login'),
-                                      ),
-                                    )));
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) {
+                                return LoginForm();
+                              })
+                            );
                           },
+                          
                           child: Stack(
                             alignment: Alignment.centerLeft,
                             children: <Widget>[
