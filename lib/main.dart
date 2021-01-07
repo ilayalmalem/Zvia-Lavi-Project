@@ -3,50 +3,38 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:testapplicacs/components/LoginForm.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import './components/globals.dart' as globals;
-
-class HexColor extends Color {
-  static int _getColorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll("#", "");
-    if (hexColor.length == 6) {
-      hexColor = "FF" + hexColor;
-    }
-    return int.parse(hexColor, radix: 16);
-  }
-
-  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
-}
+import './helpers/HexColor.dart';
+import 'components/Logo.dart';
 
 void main() {
   globals.isCheckboxChecked = false;
-  runApp(MyApp());
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Project Lavi',
+      title: 'Remote Epsilon',
       theme: ThemeData(
-          primarySwatch: Colors.blue,
-          textTheme: GoogleFonts.nunitoTextTheme(
-            Theme.of(context).textTheme.copyWith(
-              subtitle1: TextStyle(color: Colors.white)
-            )
-          ),
-          
-          inputDecorationTheme: InputDecorationTheme(
-            hintStyle: TextStyle(
-              color: HexColor('#D3D3D3'),
-            ),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: HexColor('#D3D3D3'))
-            )
-          )  
+        textTheme: GoogleFonts.nunitoTextTheme(
+          Theme.of(context).textTheme.copyWith(
+            subtitle1: TextStyle(color: Colors.white)
+          )
         ),
           
+        inputDecorationTheme: InputDecorationTheme(
+          hintStyle: TextStyle(
+            color: HexColor('#D3D3D3'),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: HexColor('#D3D3D3'))
+          )
+        )  
+      ),
+          
       home: Container(
-        // If not authenticated
         child: WelcomePage(),
       ),
     );
@@ -68,7 +56,6 @@ class WelcomePage extends StatelessWidget {
                   top: 52.0, bottom: 52.0, left: 40.0, right: 40.0),
               child: SizedBox.expand(
                 child: Column(
-                    // logo
                     children: <Widget>[
                       Expanded(
                         flex: 1,
@@ -77,12 +64,7 @@ class WelcomePage extends StatelessWidget {
                           child: Row(
                             children: <Widget>[
                               SvgPicture.asset('assets/logo.svg'),
-                              Text('  RemoteEpsilon',
-                                style: GoogleFonts.montserrat(
-                                    textStyle: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18)))
+                              Logo()
                               ],
                           ),
                         ),

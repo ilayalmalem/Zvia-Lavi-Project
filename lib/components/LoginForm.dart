@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:testapplicacs/components/Logo.dart';
 import './globals.dart' as globals;
-import '../main.dart';
 import './checkbox.dart';
+import '../helpers/HexColor.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -41,13 +42,7 @@ class _LoginFormState extends State<LoginForm> {
                     children: <Widget>[
                       SvgPicture.asset('assets/logo.svg'),
                       Divider(),
-                        Text('RemoteEpsilon',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                               fontSize: 18
-                            )
-                        )
+                      Logo()
                     ],
                   ),
                 ),
